@@ -25,7 +25,7 @@ export default function Home() {
     fetchSettings();
   }, [fetchSettings]);
 
-  if (hasMounted && !isInService) {
+  if (!isInService) {
     return <MaintenancePage />;
   }
 
