@@ -1,25 +1,27 @@
 import { NextResponse } from "next/server";
-import path from "path";
-import { readFile, writeFile } from "fs/promises";
+import { put, list } from "@vercel/blob";
 import defaultSettings from "@/config/siteSettings.json";
 
 export const dynamic = "force-dynamic";
 
-const SETTINGS_FILE_PATH = path.join(
-  process.cwd(),
-  "src",
-  "config",
-  "siteSettings.json"
-);
+const SETTINGS_FILENAME = "site-settings.json";
 
 async function getSettingsData() {
   try {
-    const data = await readFile(SETTINGS_FILE_PATH, "utf8");
-    return JSON.parse(data);
+    // Check if the settings file exists in Vercel Blob
+    const { blobs } = await list({ prefix: SETTINGS_FILENAME });
+    
+    if (blobs.length > 0) {
+      // Fetch the latest settings from the Blob URL
+      const response = await fetch(blobs[0].url, { cache: "no-store" });
+      if (response.ok) {
+        return await response.json();
+      }
+    }
   } catch (err) {
-    console.warn("Could not read siteSettings.json, falling back to default:", err);
-    return defaultSettings;
+    console.warn("Could not read from Vercel Blob, falling back to default:", err);
   }
+  return defaultSettings;
 }
 
 export async function GET() {
@@ -57,17 +59,12 @@ export async function POST(request) {
       updatedAt: new Date().toISOString(),
     };
 
-    // NOTE: this write only persists if the deployment's filesystem is
-    // writable and durable across requests/instances (true for a single
-    // persistent server, NOT true for most serverless hosts, which run
-    // on a read-only or ephemeral filesystem). If that's your host, this
-    // toggle will keep reverting on the next read - swap this for a real
-    // datastore (DB/KV) instead of papering over the failure.
-    await writeFile(
-      SETTINGS_FILE_PATH,
-      JSON.stringify(updated, null, 2),
-      "utf8"
-    );
+    // Store the updated JSON in Vercel Blob (overwrite the existing file without a random suffix)
+    await put(SETTINGS_FILENAME, JSON.stringify(updated, null, 2), {
+      access: "public",
+      addRandomSuffix: false,
+      contentType: "application/json",
+    });
 
     return NextResponse.json(
       {

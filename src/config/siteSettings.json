@@ -1,5 +1,5 @@
 {
-  "isInService": true,
+  "isInService": false,
   "title": "Currently under Maintenance",
   "subtitle": "எங்கள் தளம் தற்காலிகமாக பராமரிப்பில் உள்ளது",
   "maintenanceMessage": "We are currently updating our Sivakasi fireworks inventory, festival discounts, and 2026 Diwali catalogue rates. We will be back online shortly!",
@@ -8,5 +8,5 @@
   "whatsapp": "+91 98659 02681",
   "email": "contact@rrrcrackers.com",
   "address": "Sivakasi, Tamil Nadu, India",
-  "updatedAt": "2026-09-28T11:39:47.640Z"
+  "updatedAt": "2026-09-28T12:04:51.329Z"
 }
