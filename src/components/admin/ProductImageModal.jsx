@@ -424,7 +424,7 @@ export default function ProductImageModal({
                             type="button"
                             onClick={(e) => handleDeleteUploadedImage(item.filename, e)}
                             title="Delete file from server"
-                            className="opacity-0 group-hover:opacity-100 absolute bottom-2 right-2 p-1.5 rounded-md bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition-opacity cursor-pointer"
+                            className="absolute bottom-2 right-2 p-1.5 rounded-md bg-red-50 text-red-600 border border-red-200 cursor-pointer"
                           >
                             <Trash2 className="w-3 h-3" />
                           </button>
