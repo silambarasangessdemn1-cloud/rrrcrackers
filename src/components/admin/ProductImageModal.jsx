@@ -13,6 +13,7 @@ import {
   AlertCircle,
   RefreshCw,
   FolderOpen,
+  Camera,
 } from "lucide-react";
 import { getProductImage, CATEGORY_MAP } from "@/config/products";
 
@@ -35,8 +36,8 @@ export default function ProductImageModal({
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const [isDragging, setIsDragging] = useState(false);
-
   const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
 
   // Initialize selected image when product opens
   useEffect(() => {
@@ -453,8 +454,7 @@ export default function ProductImageModal({
                     handleFileSelect(e.dataTransfer.files[0]);
                   }
                 }}
-                onClick={() => fileInputRef.current?.click()}
-                className={`border-2 border-dashed rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
+                className={`border-2 border-dashed rounded-2xl p-8 flex flex-col items-center justify-center text-center transition-all ${
                   isDragging
                     ? "border-primary-600 bg-primary-50/50 scale-[1.01]"
                     : "border-amber-300 hover:border-primary-500 bg-cream/60 hover:bg-amber-50"
@@ -464,6 +464,17 @@ export default function ProductImageModal({
                   ref={fileInputRef}
                   type="file"
                   accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml,image/gif,image/avif"
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      handleFileSelect(e.target.files[0]);
+                    }
+                  }}
+                />
+                <input
+                  ref={cameraInputRef}
+                  type="file"
+                  accept="image/*"
                   capture="environment"
                   className="hidden"
                   onChange={(e) => {
@@ -477,10 +488,30 @@ export default function ProductImageModal({
                   <Upload className="w-8 h-8" />
                 </div>
 
-                <h3 className="text-base font-bold text-slate-800">
-                  {uploadFile ? "Change Selected File" : "Click to browse or drop image here"}
+                <h3 className="text-base font-bold text-slate-800 mb-3">
+                  {uploadFile ? "Change Selected File" : "Drag and drop image here, or select:"}
                 </h3>
-                <p className="text-xs text-slate-500 mt-1 max-w-xs">
+                
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-4 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-sm font-bold flex items-center gap-2 transition-colors cursor-pointer"
+                  >
+                    <FolderOpen className="w-4 h-4" />
+                    Browse Files
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => cameraInputRef.current?.click()}
+                    className="px-4 py-2 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-sm font-bold flex items-center gap-2 shadow-md transition-colors cursor-pointer"
+                  >
+                    <Camera className="w-4 h-4" />
+                    Take Photo
+                  </button>
+                </div>
+
+                <p className="text-xs text-slate-500 mt-4 max-w-xs">
                   Supports PNG, JPG, WEBP, SVG, GIF up to 10MB. Uploaded images will be saved and can be reused anytime for any product.
                 </p>
               </div>
