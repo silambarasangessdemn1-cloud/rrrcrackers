@@ -1,7 +1,14 @@
-import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
+import { v2 as cloudinary } from "cloudinary";
 
 export const dynamic = "force-dynamic";
+
+// Configure Cloudinary with the provided credentials
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "rb9c6mve",
+  api_key: process.env.CLOUDINARY_API_KEY || "834273282924553",
+  api_secret: process.env.CLOUDINARY_API_SECRET || "hA5v58LZ6cNUmRbi5ujDasy1CZ8",
+});
 
 export async function POST(request) {
   try {
@@ -41,22 +48,36 @@ export async function POST(request) {
       );
     }
 
-    // Upload using Vercel Blob
-    const blob = await put(file.name, file, {
-      access: 'public',
+    // Convert file to a Buffer
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    // Upload using Cloudinary upload_stream
+    const result = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: "rrrcrackers",
+        },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      );
+      // Write buffer to stream
+      uploadStream.end(buffer);
     });
 
     return NextResponse.json({
       success: true,
-      url: blob.url,
-      filename: file.name,
+      url: result.secure_url,
+      filename: result.public_id,
       originalName: file.name,
       size: file.size,
       type: file.type,
       uploadedAt: new Date().toISOString(),
     });
   } catch (error) {
-    console.error("Upload error:", error);
+    console.error("Cloudinary upload error:", error);
     return NextResponse.json(
       { error: "Failed to upload image: " + error.message },
       { status: 500 }
