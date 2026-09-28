@@ -1,26 +1,38 @@
 import { NextResponse } from "next/server";
 import { put, list } from "@vercel/blob";
+import { readFile, writeFile } from "fs/promises";
+import path from "path";
 import defaultSettings from "@/config/siteSettings.json";
 
 export const dynamic = "force-dynamic";
 
 const SETTINGS_FILENAME = "site-settings.json";
+const LOCAL_SETTINGS_PATH = path.join(process.cwd(), "src", "config", "siteSettings.json");
 
 async function getSettingsData() {
-  try {
-    // Check if the settings file exists in Vercel Blob
-    const { blobs } = await list({ prefix: SETTINGS_FILENAME });
-    
-    if (blobs.length > 0) {
-      // Fetch the latest settings from the Blob URL
-      const response = await fetch(blobs[0].url, { cache: "no-store" });
-      if (response.ok) {
-        return await response.json();
+  // If Blob token exists, try Vercel Blob first (for production)
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const { blobs } = await list({ prefix: SETTINGS_FILENAME });
+      if (blobs.length > 0) {
+        const response = await fetch(blobs[0].url, { cache: "no-store" });
+        if (response.ok) {
+          return await response.json();
+        }
       }
+    } catch (err) {
+      console.warn("Could not read from Vercel Blob:", err);
     }
-  } catch (err) {
-    console.warn("Could not read from Vercel Blob, falling back to default:", err);
+  } else {
+    // Fallback to local filesystem (for local development)
+    try {
+      const data = await readFile(LOCAL_SETTINGS_PATH, "utf8");
+      return JSON.parse(data);
+    } catch (err) {
+      console.warn("Could not read local settings:", err);
+    }
   }
+  
   return defaultSettings;
 }
 
@@ -59,12 +71,17 @@ export async function POST(request) {
       updatedAt: new Date().toISOString(),
     };
 
-    // Store the updated JSON in Vercel Blob (overwrite the existing file without a random suffix)
-    await put(SETTINGS_FILENAME, JSON.stringify(updated, null, 2), {
-      access: "public",
-      addRandomSuffix: false,
-      contentType: "application/json",
-    });
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      // Store in Vercel Blob if configured
+      await put(SETTINGS_FILENAME, JSON.stringify(updated, null, 2), {
+        access: "public",
+        addRandomSuffix: false,
+        contentType: "application/json",
+      });
+    } else {
+      // Store in local file system for local development
+      await writeFile(LOCAL_SETTINGS_PATH, JSON.stringify(updated, null, 2), "utf8");
+    }
 
     return NextResponse.json(
       {

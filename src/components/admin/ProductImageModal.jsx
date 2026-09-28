@@ -464,6 +464,7 @@ export default function ProductImageModal({
                   ref={fileInputRef}
                   type="file"
                   accept="image/png,image/jpeg,image/jpg,image/webp,image/svg+xml,image/gif,image/avif"
+                  capture="environment"
                   className="hidden"
                   onChange={(e) => {
                     if (e.target.files && e.target.files[0]) {
