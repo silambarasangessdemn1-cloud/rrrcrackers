@@ -15,7 +15,11 @@ async function getSettingsData() {
     try {
       const { blobs } = await list({ prefix: SETTINGS_FILENAME });
       if (blobs.length > 0) {
-        const response = await fetch(blobs[0].url, { cache: "no-store" });
+        // Vercel Blob caches the URL at the edge. We must cache-bust it.
+        const blobUrl = new URL(blobs[0].url);
+        blobUrl.searchParams.set("t", Date.now().toString());
+        
+        const response = await fetch(blobUrl.toString(), { cache: "no-store" });
         if (response.ok) {
           return await response.json();
         }
