@@ -1,6 +1,5 @@
+import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
-import path from "path";
-import { writeFile, mkdir } from "fs/promises";
 
 export const dynamic = "force-dynamic";
 
@@ -42,34 +41,16 @@ export async function POST(request) {
       );
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    // Sanitize file name
-    const originalName = file.name || "upload";
-    const extension = path.extname(originalName) || ".png";
-    const baseName = path
-      .basename(originalName, extension)
-      .replace(/[^a-zA-Z0-9_-]/g, "_")
-      .toLowerCase()
-      .substring(0, 40);
-
-    const timestamp = Date.now();
-    const uniqueFilename = `${baseName || "img"}_${timestamp}${extension.toLowerCase()}`;
-
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadDir, { recursive: true });
-
-    const filePath = path.join(uploadDir, uniqueFilename);
-    await writeFile(filePath, buffer);
-
-    const publicUrl = `/uploads/${uniqueFilename}`;
+    // Upload using Vercel Blob
+    const blob = await put(file.name, file, {
+      access: 'public',
+    });
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
-      filename: uniqueFilename,
-      originalName: originalName,
+      url: blob.url,
+      filename: file.name,
+      originalName: file.name,
       size: file.size,
       type: file.type,
       uploadedAt: new Date().toISOString(),
