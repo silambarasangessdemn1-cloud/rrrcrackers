@@ -1,41 +1,38 @@
 import { NextResponse } from "next/server";
-import path from "path";
-import { readdir, stat, unlink } from "fs/promises";
+import { v2 as cloudinary } from "cloudinary";
 import { images as stockImages } from "@/config/image";
 
 export const dynamic = "force-dynamic";
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "rb9c6mve",
+  api_key: process.env.CLOUDINARY_API_KEY || "834273282924553",
+  api_secret: process.env.CLOUDINARY_API_SECRET || "hA5v58LZ6cNUmRbi5ujDasy1CZ8",
+});
+
 export async function GET() {
   try {
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
     let uploadedFiles = [];
 
     try {
-      const files = await readdir(uploadDir);
-      const fileStats = await Promise.all(
-        files
-          .filter((file) => file.match(/\.(jpg|jpeg|png|webp|svg|gif|avif)$/i))
-          .map(async (file) => {
-            const filePath = path.join(uploadDir, file);
-            const stats = await stat(filePath);
-            return {
-              id: `upload_${file}`,
-              filename: file,
-              name: file.replace(/_\d+\.[^.]+$/, "").replace(/_/g, " "),
-              url: `/uploads/${file}`,
-              type: "uploaded",
-              size: stats.size,
-              createdAt: stats.mtime.toISOString(),
-            };
-          })
-      );
+      // Fetch resources from Cloudinary folder
+      const result = await cloudinary.search
+        .expression('folder:rrrcrackers')
+        .sort_by('created_at', 'desc')
+        .max_results(100)
+        .execute();
 
-      // Sort uploaded files by most recent first
-      uploadedFiles = fileStats.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-    } catch {
-      // directory might be empty or not yet read
+      uploadedFiles = result.resources.map((file) => ({
+        id: file.asset_id,
+        filename: file.public_id,
+        name: file.filename || file.public_id.split('/').pop(),
+        url: file.secure_url,
+        type: "uploaded",
+        size: file.bytes,
+        createdAt: file.created_at,
+      }));
+    } catch (err) {
+      console.error("Cloudinary fetch error:", err);
       uploadedFiles = [];
     }
 
@@ -77,15 +74,12 @@ export async function DELETE(request) {
       );
     }
 
-    // Security check: prevent directory traversal
-    const safeFilename = path.basename(filename);
-    const filePath = path.join(process.cwd(), "public", "uploads", safeFilename);
-
-    await unlink(filePath);
+    // Delete from Cloudinary using public_id
+    await cloudinary.uploader.destroy(filename);
 
     return NextResponse.json({
       success: true,
-      message: `Image ${safeFilename} deleted successfully.`,
+      message: `Image deleted successfully.`,
     });
   } catch (error) {
     console.error("Delete image error:", error);
