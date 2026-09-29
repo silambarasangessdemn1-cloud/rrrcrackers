@@ -45,9 +45,9 @@ export default function Footer() {
             <p className="text-caption text-cream/80">
               Sivakasi Direct Agency Crackers &bull; Tamil Nadu
             </p>
-            <div className="flex items-center gap-custom-6 text-caption text-cream/90 mt-custom-4">
-              <MapPin className="w-custom-16 h-custom-16 text-accent-gold shrink-0" />
-              <span>Sivakasi, Tamil Nadu, India</span>
+            <div className="flex items-start gap-custom-6 text-caption text-cream/90 mt-custom-4">
+              <MapPin className="w-custom-16 h-custom-16 text-accent-gold shrink-0 mt-0.5" />
+              <span>SFNO545/1B SURYA NAGAR BUSSTOP,<br/>POONDI RING ROAD,<br/>RAKKIYAPALAYAM VILLAGE AVINASHI,<br/>TIRUPPUR</span>
             </div>
 
             {/* Social Media Links */}
