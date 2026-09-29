@@ -17,7 +17,10 @@ function ProductCardComponent({ product }) {
   const productImage = getProductImage(product);
   const offerTag = product.tag || "RRR OFFER";
 
-  const handleIncrement = () => setQuantity((prev) => prev + 1);
+  const handleIncrement = () => {
+    if (product.maxQty && quantity >= product.maxQty) return;
+    setQuantity((prev) => prev + 1);
+  };
   const handleDecrement = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
   const handleAddToCart = () => {
@@ -99,7 +102,8 @@ function ProductCardComponent({ product }) {
             <button
               type="button"
               onClick={handleIncrement}
-              className="w-7 h-7 flex items-center justify-center text-slate-700 hover:text-amber-800 hover:bg-amber-50 active:scale-90 rounded-lg transition-all cursor-pointer font-bold"
+              disabled={product.maxQty && quantity >= product.maxQty}
+              className={`w-7 h-7 flex items-center justify-center text-slate-700 hover:text-amber-800 hover:bg-amber-50 active:scale-90 rounded-lg transition-all font-bold ${product.maxQty && quantity >= product.maxQty ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               aria-label="Increase quantity"
             >
               <Plus className="w-4 h-4 stroke-[2.5]" />
@@ -206,7 +210,8 @@ function ProductCardComponent({ product }) {
             <button
               type="button"
               onClick={handleIncrement}
-              className="w-7 h-7 flex items-center justify-center text-slate-700 hover:text-amber-800 active:scale-90 rounded-lg transition-all cursor-pointer font-bold"
+              disabled={product.maxQty && quantity >= product.maxQty}
+              className={`w-7 h-7 flex items-center justify-center text-slate-700 hover:text-amber-800 active:scale-90 rounded-lg transition-all font-bold ${product.maxQty && quantity >= product.maxQty ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               aria-label="Increase quantity"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />

@@ -20,12 +20,15 @@ export const useCartStore = create()(
           let updatedItems;
           if (existingIndex > -1) {
             updatedItems = [...state.items];
+            const newQty = updatedItems[existingIndex].quantity + quantity;
+            const maxQty = product.maxQty || Infinity;
             updatedItems[existingIndex] = {
               ...updatedItems[existingIndex],
-              quantity: updatedItems[existingIndex].quantity + quantity,
+              quantity: newQty > maxQty ? maxQty : newQty,
             };
           } else {
-            updatedItems = [...state.items, { product, quantity }];
+            const maxQty = product.maxQty || Infinity;
+            updatedItems = [...state.items, { product, quantity: quantity > maxQty ? maxQty : quantity }];
           }
 
           return {
@@ -41,6 +44,8 @@ export const useCartStore = create()(
             .map((item) => {
               if (item.product.id === productId) {
                 const nextQty = item.quantity + delta;
+                const maxQty = item.product.maxQty || Infinity;
+                if (nextQty > maxQty) return { ...item, quantity: maxQty };
                 return nextQty > 0 ? { ...item, quantity: nextQty } : null;
               }
               return item;

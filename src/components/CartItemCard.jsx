@@ -51,7 +51,8 @@ function CartItemCardComponent({ item, onUpdateQuantity, onRemove }) {
           </span>
           <button
             onClick={() => onUpdateQuantity(item.product.id, 1)}
-            className="px-custom-6 py-custom-4 hover:bg-gold-tint text-text-secondary cursor-pointer"
+            disabled={item.product.maxQty && item.quantity >= item.product.maxQty}
+            className={`px-custom-6 py-custom-4 text-text-secondary ${item.product.maxQty && item.quantity >= item.product.maxQty ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gold-tint cursor-pointer'}`}
             aria-label="Increase quantity"
           >
             <Plus className="w-3 h-3" />
