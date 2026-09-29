@@ -2,7 +2,7 @@ import Logo from "../../public/logo.svg";
 
 export const images = {
   logo: Logo,
-  catalogueBanner: "/uploads/banner.png",
+  catalogueBanner: "/uploads/store.jpeg",
   sparklers: "/images/sparklers_photo_1790234189780.svg",
   groundChakkar: "/images/ground_chakkar_1790234203805.svg",
   flowerPot: "/images/flower_pot_1790234216986.svg",
