@@ -53,7 +53,7 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-custom-32 items-center">
         <div className="flex flex-col gap-custom-20 justify-start text-center md:text-left h-full">
           <div className="text-caption text-secondary">
-            <span>Sivakasi Direct • Wholesale Catalogue 2026</span>
+            <span>Sivakasi Direct Agency • Wholesale Catalogue 2026</span>
           </div>
 
           <div className="flex flex-col gap-custom-12">

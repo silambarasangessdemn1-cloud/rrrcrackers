@@ -37,7 +37,7 @@ export default function About() {
                 About RRR Crackers
               </h2>
               <span className="text-caption text-secondary">
-                Sivakasi Direct Quality Since 2026
+                Sivakasi Direct Agency Quality Since 2026
               </span>
             </div>
           </div>

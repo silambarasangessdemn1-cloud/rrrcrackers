@@ -92,7 +92,7 @@ export default function MaintenancePage({ customSettings }) {
               RRR CRACKERS
             </span>
             <p className="text-caption font-bold text-accent-gold tracking-widest uppercase">
-              Sivakasi Direct &bull; Festival Fireworks
+              Sivakasi Direct Agency &bull; Festival Fireworks
             </p>
           </div>
         </div>

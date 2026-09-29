@@ -43,7 +43,7 @@ export default function Footer() {
               Contact RRR Crackers
             </h2>
             <p className="text-caption text-cream/80">
-              Sivakasi Direct Crackers &bull; Tamil Nadu
+              Sivakasi Direct Agency Crackers &bull; Tamil Nadu
             </p>
             <div className="flex items-center gap-custom-6 text-caption text-cream/90 mt-custom-4">
               <MapPin className="w-custom-16 h-custom-16 text-accent-gold shrink-0" />

@@ -26,7 +26,7 @@ export default function AdminLayout({ children }) {
                 </span>
               </div>
               <span className="text-custom-16 text-cream/70">
-                Sivakasi Direct Inventory &bull; 2026 Catalogue Manager
+                Sivakasi Direct Agency Inventory &bull; 2026 Catalogue Manager
               </span>
             </div>
           </div>
