@@ -8,6 +8,7 @@ import {
   Menu,
   X,
   MessageCircle,
+  Sparkles,
 } from "lucide-react";
 
 const InstagramIcon = ({ className }) => (
