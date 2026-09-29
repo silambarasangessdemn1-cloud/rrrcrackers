@@ -87,7 +87,7 @@ export default function PricelistModal() {
                 RRR Crackers - 2026 Catalogue Price List
               </h2>
               <span className="text-custom-16 md:text-caption text-accent-gold font-medium">
-                Sivakasi Direct Agency &bull; 10/09/2026 to 02/11/2026 &bull; Free Shipping for &#8377;2,500+
+                Sivakasi Direct Agency &bull; 10/09/2026 to 02/11/2026 &bull; Free Shipping for &#8377;3,000+
               </span>
             </div>
           </div>

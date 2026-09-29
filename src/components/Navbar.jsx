@@ -8,6 +8,8 @@ import {
   Menu,
   X,
   MessageCircle,
+  Instagram,
+  Youtube,
 } from "lucide-react";
 import Image from "next/image";
 import { images } from "@/config/image";
@@ -75,6 +77,27 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden sm:flex items-center gap-custom-12 shrink-0">
+          <div className="flex items-center gap-custom-8 mr-custom-4 border-r border-primary-200 pr-custom-12">
+            <a
+              href="https://www.instagram.com/rrr_crackers?stkn=ODJnb3ExYmRwM2t3"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-primary hover:text-pink-600 transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram className="w-custom-20 h-auto" />
+            </a>
+            <a
+              href="https://youtube.com/@rrrcrackers?si=yFvTmhrqBX7j39Fc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-text-primary hover:text-red-600 transition-colors"
+              aria-label="YouTube"
+            >
+              <Youtube className="w-custom-20 h-auto" />
+            </a>
+          </div>
+
           <a
             href="https://wa.me/919865902681"
             target="_blank"
@@ -136,6 +159,28 @@ export default function Navbar() {
           </nav>
 
           <div className="pt-custom-12 border-t border-primary-100 flex flex-col gap-custom-10">
+            <div className="flex items-center justify-center gap-custom-16 py-custom-8 mb-custom-4">
+              <a
+                href="https://www.instagram.com/rrr_crackers?stkn=ODJnb3ExYmRwM2t3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-custom-6 text-body-sm font-medium text-text-primary hover:text-pink-600 transition-colors"
+              >
+                <Instagram className="w-5 h-5 text-pink-500" />
+                <span>Instagram</span>
+              </a>
+              <div className="w-px h-5 bg-primary-200"></div>
+              <a
+                href="https://youtube.com/@rrrcrackers?si=yFvTmhrqBX7j39Fc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-custom-6 text-body-sm font-medium text-text-primary hover:text-red-600 transition-colors"
+              >
+                <Youtube className="w-5 h-5 text-red-500" />
+                <span>YouTube</span>
+              </a>
+            </div>
+            
             <a
               href="https://wa.me/919865902681"
               target="_blank"
