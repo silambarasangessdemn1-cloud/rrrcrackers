@@ -1,4 +1,4 @@
-export const MIN_ORDER_AMOUNT = 2500;
+export const MIN_ORDER_AMOUNT = 3000;
 export const HELPLINE_PHONE = "919865902681";
 export const HELPLINE_DISPLAY = "+91 98659 02681";
 
