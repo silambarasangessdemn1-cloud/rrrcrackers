@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { PRODUCTS } from "@/config/products";
 
 export const useCartStore = create()(
   persist(
@@ -21,14 +22,18 @@ export const useCartStore = create()(
           if (existingIndex > -1) {
             updatedItems = [...state.items];
             const newQty = updatedItems[existingIndex].quantity + quantity;
-            const maxQty = product.maxQty || Infinity;
+            // Get latest product from PRODUCTS if possible, fallback to passed product
+            const latestProduct = PRODUCTS.find((p) => p.id === product.id) || product;
+            const maxQty = latestProduct.maxQty || Infinity;
             updatedItems[existingIndex] = {
               ...updatedItems[existingIndex],
+              product: latestProduct,
               quantity: newQty > maxQty ? maxQty : newQty,
             };
           } else {
-            const maxQty = product.maxQty || Infinity;
-            updatedItems = [...state.items, { product, quantity: quantity > maxQty ? maxQty : quantity }];
+            const latestProduct = PRODUCTS.find((p) => p.id === product.id) || product;
+            const maxQty = latestProduct.maxQty || Infinity;
+            updatedItems = [...state.items, { product: latestProduct, quantity: quantity > maxQty ? maxQty : quantity }];
           }
 
           return {
@@ -43,10 +48,11 @@ export const useCartStore = create()(
           items: state.items
             .map((item) => {
               if (item.product.id === productId) {
+                const latestProduct = PRODUCTS.find((p) => p.id === productId) || item.product;
                 const nextQty = item.quantity + delta;
-                const maxQty = item.product.maxQty || Infinity;
-                if (nextQty > maxQty) return { ...item, quantity: maxQty };
-                return nextQty > 0 ? { ...item, quantity: nextQty } : null;
+                const maxQty = latestProduct.maxQty || Infinity;
+                if (nextQty > maxQty) return { ...item, product: latestProduct, quantity: maxQty };
+                return nextQty > 0 ? { ...item, product: latestProduct, quantity: nextQty } : null;
               }
               return item;
             })
@@ -64,8 +70,9 @@ export const useCartStore = create()(
           return {
             items: state.items.map((item) => {
               if (item.product.id === productId) {
-                const maxQty = item.product.maxQty || Infinity;
-                return { ...item, quantity: quantity > maxQty ? maxQty : quantity };
+                const latestProduct = PRODUCTS.find((p) => p.id === productId) || item.product;
+                const maxQty = latestProduct.maxQty || Infinity;
+                return { ...item, product: latestProduct, quantity: quantity > maxQty ? maxQty : quantity };
               }
               return item;
             }),

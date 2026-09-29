@@ -193,6 +193,18 @@ export const useProductStore = create()(
     {
       name: "rrr_product_storage",
       storage: createJSONStorage(() => localStorage),
+      merge: (persistedState, currentState) => {
+        if (!persistedState) return currentState;
+        const mergedProducts = persistedState.products?.map(pp => {
+          const original = PRODUCTS.find(op => op.id === pp.id) || {};
+          return { ...original, ...pp };
+        }) || currentState.products;
+        return {
+          ...currentState,
+          ...persistedState,
+          products: mergedProducts
+        };
+      },
       partialize: (state) => ({
         products: (state.products || []).map((p) => ({
           id: p.id,
@@ -207,6 +219,7 @@ export const useProductStore = create()(
           cat: p.cat || "sparklers",
           tag: p.tag || "",
           customImage: p.customImage || "",
+          maxQty: p.maxQty,
         })),
       }),
     }
