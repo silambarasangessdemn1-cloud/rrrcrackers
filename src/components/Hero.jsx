@@ -24,7 +24,7 @@ const HERO_FEATURES = [
   {
     icon: Gift,
     title: "Wholesale Pricing",
-    description: "Starting from ₹2,500",
+    description: "Starting from ₹3,000",
   },
 ];
 
@@ -103,14 +103,14 @@ export default function Hero() {
           <div className="flex flex-wrap items-center gap-x-custom-12 gap-y-custom-6 pt-custom-4 text-caption text-text-secondary">
             <span>
               Minimum order{" "}
-              <strong className="font-bold text-text-primary">&#8377;2,500</strong>
+              <strong className="font-bold text-text-primary">&#8377;3,000</strong>
             </span>
 
             <span className="hidden sm:inline text-border-amber">&bull;</span>
 
             <span>
               <strong className="font-bold text-semantic-success">
-                Free shipping
+                Reliable delivery
               </strong>{" "}
               across Tamil Nadu
             </span>

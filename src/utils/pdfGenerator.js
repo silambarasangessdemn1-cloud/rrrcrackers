@@ -44,7 +44,7 @@ export function printPriceListDocument(products, categoryMap) {
       <div class="header">
         <div class="title">RRR CRACKERS &bull; SIVAKASI DIRECT</div>
         <div class="subtitle">Diwali 2026 Wholesale Price List &bull; Phone / WhatsApp: ${HELPLINE_DISPLAY}</div>
-        <div class="meta">Minimum Order: ₹3,000 with FREE Tamil Nadu Delivery &bull; Valid 10/09/2026 to 02/11/2026</div>
+        <div class="meta">Minimum Order: ₹3,000 &bull; Valid 10/09/2026 to 02/11/2026</div>
       </div>
       <table>
         <thead>

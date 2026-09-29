@@ -77,7 +77,7 @@ export default function Navbar() {
       {/* Top Notification Bar */}
       <div className="bg-linear-to-r from-primary-800 via-primary-600 to-primary-800 text-cream flex items-center justify-center gap-2 text-[11px] sm:text-xs font-medium py-2 px-4 text-center tracking-wide">
         <Sparkles className="w-3 h-3 text-accent-gold hidden sm:block" />
-        <span>Diwali 2026 Sivakasi Direct Agency Catalogue &bull; Minimum Order &#8377;3,000 with <strong className="text-accent-gold">FREE Tamil Nadu Shipping</strong></span>
+        <span>Diwali 2026 Sivakasi Direct Agency Catalogue &bull; Minimum Order &#8377;3,000</span>
         <Sparkles className="w-3 h-3 text-accent-gold hidden sm:block" />
       </div>
 

@@ -25,7 +25,7 @@ export function generateWhatsAppOrderMessage({
   message += `----------------------------------------\n`;
   message += `*TOTAL ITEMS:* ${totalItems}\n`;
   message += `*TOTAL VALUE:* ${formatCurrency(totalAmount)}\n`;
-  message += `*SHIPPING:* ${totalAmount >= MIN_ORDER_AMOUNT ? "FREE (Tamil Nadu)" : "Standard Delivery"}\n`;
+  message += `*MINIMUM ORDER:* ${totalAmount >= MIN_ORDER_AMOUNT ? "Reached" : "Not Reached"}\n`;
   message += `----------------------------------------\n`;
   message += `Please confirm availability and dispatch details.`;
 

@@ -8,8 +8,8 @@ const WHY_CHOOSE_ITEMS = [
     description: "Zero middleman commissions.",
   },
   {
-    title: "Free Shipping",
-    description: "Free delivery all across Tamil Nadu for ₹2,500+ orders.",
+    title: "Tamil Nadu Delivery",
+    description: "Reliable delivery all across Tamil Nadu for ₹3,000+ orders.",
   },
   {
     title: "365 Days Availability",

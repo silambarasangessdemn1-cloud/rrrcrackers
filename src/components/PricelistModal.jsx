@@ -87,7 +87,7 @@ export default function PricelistModal() {
                 RRR Crackers - 2026 Catalogue Price List
               </h2>
               <span className="text-custom-16 md:text-caption text-accent-gold font-medium">
-                Sivakasi Direct Agency &bull; 10/09/2026 to 02/11/2026 &bull; Free Shipping for &#8377;3,000+
+                Sivakasi Direct Agency &bull; 10/09/2026 to 02/11/2026 &bull; Minimum Order &#8377;3,000
               </span>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function PricelistModal() {
               <span>Showing {filteredProducts.length} crackers in catalogue</span>
               <span className="flex items-center gap-custom-4 text-semantic-success font-bold">
                 <CheckCircle2 className="w-custom-12 h-custom-12" />
-                Free Tamil Nadu Delivery for &#8377;2,500+
+                Minimum Order &#8377;3,000
               </span>
             </div>
           </div>

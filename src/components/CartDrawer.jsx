@@ -135,7 +135,7 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between text-caption font-bold">
               <div className="flex items-center gap-custom-6 text-text-primary">
                 <Truck className="w-custom-12 h-custom-12 text-primary-600" />
-                <span>Min. Order: &#8377;2,500 (Free TN Shipping)</span>
+                <span>Min. Order: &#8377;3,000</span>
               </div>
               <div>
                 {remainingAmount > 0 ? (
@@ -145,7 +145,7 @@ export default function CartDrawer() {
                 ) : (
                   <span className="text-semantic-success flex items-center gap-custom-2">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    Eligible for Free Delivery
+                    Minimum Order Reached
                   </span>
                 )}
               </div>
@@ -200,8 +200,8 @@ export default function CartDrawer() {
                   </span>
                   <span className="text-caption font-bold text-semantic-success mt-custom-2">
                     {totalAmount >= MIN_ORDER_AMOUNT
-                      ? "+ Free Shipping in Tamil Nadu"
-                      : `Add ₹${remainingAmount.toLocaleString("en-IN")} for Free Shipping`}
+                      ? "Minimum Order Reached"
+                      : `Add ₹${remainingAmount.toLocaleString("en-IN")} to place order`}
                   </span>
                 </div>
               </div>
@@ -241,10 +241,10 @@ export default function CartDrawer() {
                   <AlertCircle className="w-custom-14 h-custom-14 shrink-0 mt-0.5" />
                   <span>
                     {hasMissingDetails && belowMinOrder
-                      ? `Please fill in your name, mobile number & address, and add ₹${remainingAmount.toLocaleString("en-IN")} more to reach the ₹2,500 minimum order.`
+                      ? `Please fill in your name, mobile number & address, and add ₹${remainingAmount.toLocaleString("en-IN")} more to reach the ₹3,000 minimum order.`
                       : hasMissingDetails
                         ? "Please fill in your name, mobile number & address to place the order."
-                        : `Minimum order is ₹2,500. Add ₹${remainingAmount.toLocaleString("en-IN")} more to place your order.`}
+                        : `Minimum order is ₹3,000. Add ₹${remainingAmount.toLocaleString("en-IN")} more to place your order.`}
                   </span>
                 </div>
               )}
