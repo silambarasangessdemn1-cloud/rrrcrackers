@@ -89,6 +89,7 @@ export async function POST(request) {
             folder: "rrrcrackers",
             public_id: SETTINGS_FILENAME, // Use exact filename so it overwrites
             overwrite: true,
+            invalidate: true,
           },
           (error, result) => {
             if (error) return reject(error);

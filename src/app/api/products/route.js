@@ -86,6 +86,7 @@ export async function POST(request) {
             folder: "rrrcrackers",
             public_id: PRODUCTS_FILENAME,
             overwrite: true,
+            invalidate: true,
           },
           (error, result) => {
             if (error) return reject(error);

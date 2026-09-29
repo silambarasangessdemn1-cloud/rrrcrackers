@@ -18,6 +18,17 @@ export const useSiteSettingsStore = create()(
           if (res.ok) {
             const data = await res.json();
             if (data.success && data.settings) {
+              const currentSettings = get().settings;
+              if (
+                currentSettings?.updatedAt &&
+                data.settings.updatedAt &&
+                new Date(data.settings.updatedAt) < new Date(currentSettings.updatedAt)
+              ) {
+                // Ignore stale CDN cache
+                set({ isLoading: false });
+                return currentSettings;
+              }
+
               set({
                 settings: data.settings,
                 isInService: Boolean(data.settings.isInService),
