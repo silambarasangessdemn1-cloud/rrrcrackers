@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import { images } from "@/config/image";
 import Hero from "@/components/Hero";
 import Catalogue from "@/components/Catalogue";
 import About from "@/components/About";
@@ -11,6 +13,7 @@ import CartDrawer from "@/components/CartDrawer";
 import Navbar from "@/components/Navbar";
 import MaintenancePage from "@/components/MaintenancePage";
 import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
+import { useProductStore } from "@/store/useProductStore";
 import { Phone, MessageCircle } from "lucide-react";
 import ComplianceModal from "@/components/ComplianceModal";
 
@@ -18,12 +21,14 @@ export default function Home() {
   const isInService = useSiteSettingsStore((state) => state.isInService);
   const settings = useSiteSettingsStore((state) => state.settings);
   const fetchSettings = useSiteSettingsStore((state) => state.fetchSettings);
+  const fetchProducts = useProductStore((state) => state.fetchProducts);
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
     setHasMounted(true);
     fetchSettings();
-  }, [fetchSettings]);
+    fetchProducts();
+  }, [fetchSettings, fetchProducts]);
 
   if (!isInService) {
     return <MaintenancePage />;
@@ -36,6 +41,15 @@ export default function Home() {
     <main className="w-full flex flex-col bg-cream">
       <Navbar />
       <div className="flex flex-col flex-1 pt-32">
+        <div className="w-full flex justify-center pt-8 pb-4">
+          <Image 
+            src={images.logo} 
+            alt="RRR Crackers Logo" 
+            width={200} 
+            height={100}
+            className="w-48 h-auto object-contain"
+          />
+        </div>
         <Hero />
         <Catalogue />
         <About />

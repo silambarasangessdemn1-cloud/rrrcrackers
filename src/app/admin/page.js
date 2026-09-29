@@ -19,6 +19,7 @@ import { getProductImage } from "@/config/products";
 import { calculateDiscount } from "@/utils/formatters";
 import ProductImageModal from "@/components/admin/ProductImageModal";
 import SiteStatusManager from "@/components/admin/SiteStatusManager";
+import { useEffect } from "react";
 
 export default function AdminPage() {
   const products = useProductStore((state) => state.products);
@@ -27,6 +28,11 @@ export default function AdminPage() {
   const updateProductPrice = useProductStore((state) => state.updateProductPrice);
   const updateProductImage = useProductStore((state) => state.updateProductImage);
   const resetToDefaults = useProductStore((state) => state.resetToDefaults);
+  const fetchProducts = useProductStore((state) => state.fetchProducts);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCat, setSelectedCat] = useState("all");

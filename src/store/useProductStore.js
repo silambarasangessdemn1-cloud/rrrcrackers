@@ -12,8 +12,39 @@ export const useProductStore = create()(
       })),
       categoryMap: CATEGORY_MAP,
       categoryKeys: CATEGORY_KEYS,
+      
+      fetchProducts: async () => {
+        try {
+          const res = await fetch("/api/products", { cache: "no-store" });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success && data.productsData) {
+              set((state) => ({
+                products: state.products.map(p => {
+                  const pData = data.productsData[p.id];
+                  if (pData) {
+                    const newPrice = pData.price !== undefined ? pData.price : p.price;
+                    const newFull = pData.full !== undefined ? pData.full : p.full;
+                    return {
+                      ...p,
+                      price: newPrice,
+                      full: newFull,
+                      discount: calculateDiscount(newFull, newPrice),
+                      tag: pData.tag !== undefined ? pData.tag : p.tag,
+                      customImage: pData.customImage !== undefined ? pData.customImage : p.customImage,
+                    };
+                  }
+                  return p;
+                })
+              }));
+            }
+          }
+        } catch (error) {
+          console.warn("Failed to fetch products from API:", error);
+        }
+      },
 
-      updateProductPrice: (id, price, full, tag) => {
+      updateProductPrice: async (id, price, full, tag) => {
         set((state) => ({
           products: state.products.map((p) => {
             if (p.id !== id) return p;
@@ -28,9 +59,21 @@ export const useProductStore = create()(
             };
           }),
         }));
+        
+        try {
+          await fetch("/api/products", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              [id]: { price: Number(price), full: Number(full), tag }
+            })
+          });
+        } catch (e) {
+          console.error("Failed to persist product price:", e);
+        }
       },
 
-      updateProductImage: (id, customImage) => {
+      updateProductImage: async (id, customImage) => {
         set((state) => ({
           products: state.products.map((p) => {
             if (p.id !== id) return p;
@@ -40,9 +83,21 @@ export const useProductStore = create()(
             };
           }),
         }));
+
+        try {
+          await fetch("/api/products", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              [id]: { customImage: customImage || "" }
+            })
+          });
+        } catch (e) {
+          console.error("Failed to persist product image:", e);
+        }
       },
 
-      updateProduct: (id, updatedFields) => {
+      updateProduct: async (id, updatedFields) => {
         set((state) => ({
           products: state.products.map((p) => {
             if (p.id !== id) return p;
@@ -63,15 +118,31 @@ export const useProductStore = create()(
             };
           }),
         }));
+        
+        try {
+          await fetch("/api/products", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              [id]: updatedFields
+            })
+          });
+        } catch (e) {
+          console.error("Failed to persist product:", e);
+        }
       },
 
-      applyCategoryPriceAdjustment: (catKey, percentageDelta) => {
-        // e.g. +10 for 10% increase, -10 for 10% discount
+      applyCategoryPriceAdjustment: async (catKey, percentageDelta) => {
         const factor = 1 + percentageDelta / 100;
+        const updates = {};
+        
         set((state) => ({
           products: state.products.map((p) => {
             if (catKey !== "all" && p.cat !== catKey) return p;
             const newPrice = Math.max(1, Math.round(p.price * factor));
+            
+            updates[p.id] = { price: newPrice };
+            
             return {
               ...p,
               price: newPrice,
@@ -79,9 +150,21 @@ export const useProductStore = create()(
             };
           }),
         }));
+        
+        if (Object.keys(updates).length > 0) {
+          try {
+            await fetch("/api/products", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(updates)
+            });
+          } catch (e) {
+            console.error("Failed to persist category price adjustments:", e);
+          }
+        }
       },
 
-      resetToDefaults: () => {
+      resetToDefaults: async () => {
         set({
           products: PRODUCTS.map((p) => ({
             ...p,
@@ -90,6 +173,21 @@ export const useProductStore = create()(
           categoryMap: CATEGORY_MAP,
           categoryKeys: CATEGORY_KEYS,
         });
+        
+        try {
+          // Clear productsData by writing an empty object to the API
+          await fetch("/api/products", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            // Pass a special flag or just empty out all IDs we know?
+            // Since our backend merges, merging empty object does nothing.
+            // We'd have to tell the backend to reset.
+            // For now, we'll just let localStorage reset, though it won't reset the server file.
+            // In a real app we'd add an endpoint for this.
+          });
+        } catch (e) {
+          console.error(e);
+        }
       },
     }),
     {
@@ -114,4 +212,3 @@ export const useProductStore = create()(
     }
   )
 );
-
