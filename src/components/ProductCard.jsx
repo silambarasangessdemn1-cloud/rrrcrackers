@@ -83,11 +83,6 @@ function ProductCardComponent({ product }) {
             <span className="text-2xl lg:text-3xl font-black text-[#c00000] leading-none">
               &#8377;{sellingPrice}
             </span>
-            {fullPrice > sellingPrice && (
-              <span className="text-sm font-semibold text-slate-400 line-through">
-                &#8377;{fullPrice}
-              </span>
-            )}
           </div>
         </div>
 
@@ -194,11 +189,6 @@ function ProductCardComponent({ product }) {
               <span className="text-xl sm:text-2xl font-black text-[#c00000] leading-none">
                 &#8377;{sellingPrice}
               </span>
-              {fullPrice > sellingPrice && (
-                <span className="text-xs sm:text-sm font-semibold text-slate-400 line-through">
-                  &#8377;{fullPrice}
-                </span>
-              )}
             </div>
           </div>
         </div>

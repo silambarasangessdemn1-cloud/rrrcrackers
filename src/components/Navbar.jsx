@@ -8,9 +8,45 @@ import {
   Menu,
   X,
   MessageCircle,
-  Instagram,
-  Youtube,
 } from "lucide-react";
+
+const InstagramIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const YoutubeIcon = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z" />
+    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+  </svg>
+);
+
 import Image from "next/image";
 import { images } from "@/config/image";
 
@@ -85,7 +121,7 @@ export default function Navbar() {
               className="text-text-primary hover:text-pink-600 transition-colors"
               aria-label="Instagram"
             >
-              <Instagram className="w-custom-20 h-auto" />
+              <InstagramIcon className="w-custom-20 h-auto" />
             </a>
             <a
               href="https://youtube.com/@rrrcrackers?si=yFvTmhrqBX7j39Fc"
@@ -94,7 +130,7 @@ export default function Navbar() {
               className="text-text-primary hover:text-red-600 transition-colors"
               aria-label="YouTube"
             >
-              <Youtube className="w-custom-20 h-auto" />
+              <YoutubeIcon className="w-custom-20 h-auto" />
             </a>
           </div>
 
@@ -166,7 +202,7 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-custom-6 text-body-sm font-medium text-text-primary hover:text-pink-600 transition-colors"
               >
-                <Instagram className="w-5 h-5 text-pink-500" />
+                <InstagramIcon className="w-5 h-5 text-pink-500" />
                 <span>Instagram</span>
               </a>
               <div className="w-px h-5 bg-primary-200"></div>
@@ -176,7 +212,7 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-custom-6 text-body-sm font-medium text-text-primary hover:text-red-600 transition-colors"
               >
-                <Youtube className="w-5 h-5 text-red-500" />
+                <YoutubeIcon className="w-5 h-5 text-red-500" />
                 <span>YouTube</span>
               </a>
             </div>
