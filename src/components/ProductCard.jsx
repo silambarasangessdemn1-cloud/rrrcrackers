@@ -71,6 +71,13 @@ function ProductCardComponent({ product }) {
             </p>
           )}
 
+          {/* Package & Quantity */}
+          {(product.package || product.quantity) && (
+            <p className="text-xs lg:text-sm text-slate-600 font-semibold line-clamp-1 mt-0.5">
+              {[product.package, product.quantity].filter(Boolean).join(" - ")}
+            </p>
+          )}
+
           {/* Pricing */}
           <div className="flex items-baseline gap-2.5 mt-0.5">
             <span className="text-2xl lg:text-3xl font-black text-[#c00000] leading-none">
@@ -172,6 +179,13 @@ function ProductCardComponent({ product }) {
             {product.ta && (
               <p className="text-xs text-slate-500 font-medium line-clamp-1">
                 {product.ta}
+              </p>
+            )}
+
+            {/* Package & Quantity */}
+            {(product.package || product.quantity) && (
+              <p className="text-[11px] sm:text-xs text-slate-600 font-semibold line-clamp-1 mt-0.5">
+                {[product.package, product.quantity].filter(Boolean).join(" - ")}
               </p>
             )}
 
