@@ -62,9 +62,13 @@ export const useCartStore = create()(
             };
           }
           return {
-            items: state.items.map((item) =>
-              item.product.id === productId ? { ...item, quantity } : item
-            ),
+            items: state.items.map((item) => {
+              if (item.product.id === productId) {
+                const maxQty = item.product.maxQty || Infinity;
+                return { ...item, quantity: quantity > maxQty ? maxQty : quantity };
+              }
+              return item;
+            }),
           };
         });
       },

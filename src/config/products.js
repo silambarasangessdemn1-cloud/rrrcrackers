@@ -281,7 +281,7 @@ export const PRODUCTS = [
   { "id": 126, "name": "2 / 3 Step", "ta": "2 / 3 ஸ்டெப்", "price": 400, "full": 1600, "cat": "pipe", "tag": "RRR 2026" },
   { "id": 127, "name": "12 Shots", "ta": "12 ஷாட்ஸ்", "price": 145, "full": 580, "cat": "multishot", "tag": "RRR 2026" },
   { "id": 128, "name": "12 Shots Red & Green Colour", "ta": "12 ஷாட்ஸ் ரெட் & கிரீன் கலர்", "price": 240, "full": 960, "cat": "multishot", "tag": "RRR 2026" },
-  { "id": 129, "name": "25 Shots Raider", "ta": "25 ஷாட்ஸ் ரைடர்", "price": 270, "full": 1080, "cat": "multishot", "tag": "RRR 2026" },
+  { "id": 129, "name": "25 Shots Raider", "ta": "25 ஷாட்ஸ் ரைடர்", "price": 270, "full": 1080, "cat": "multishot", "tag": "RRR 2026", "maxQty": 1 },
   { "id": 130, "name": "30 Shots Multi Colour Still Stock", "ta": "30 ஷாட்ஸ் மல்டி கலர்", "price": 295, "full": 1180, "cat": "multishot", "tag": "RRR 2026", "maxQty": 1 },
   { "id": 131, "name": "30 Shots Multi Colour Jawa / Prime", "ta": "30 ஷாட்ஸ் மல்டி கலர் ஜாவா / பிரைம்", "price": 550, "full": 2200, "cat": "multishot", "tag": "RRR 2026", "maxQty": 1 },
   { "id": 132, "name": "30 Shots Multi Colour Crackling AK", "ta": "30 ஷாட்ஸ் மல்டி கலர் கிராக்கிளிங் AK", "price": 650, "full": 2600, "cat": "multishot", "tag": "RRR 2026", "maxQty": 1 },
