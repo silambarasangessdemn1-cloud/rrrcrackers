@@ -36,7 +36,7 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full shadow-md bg-white">
       <div className="bg-linear-to-l from-primary-500 via-gradient-coral to-primary-600 text-cream flex items-center justify-center gap-custom-8 border-b border-primary-900 text-body-sm p-custom-8">
-        Diwali 2026 Sivakasi Direct Agency Catalogue &bull; Minimum Order &#8377;2,500 with FREE Tamil Nadu Shipping
+        Diwali 2026 Sivakasi Direct Agency Catalogue &bull; Minimum Order &#8377;3,000 with FREE Tamil Nadu Shipping
       </div>
 
       <div className="max-w-7xl mx-auto px-custom-8 flex items-center justify-between gap-custom-12 py-custom-16">
