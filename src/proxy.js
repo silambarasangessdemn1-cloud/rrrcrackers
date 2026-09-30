@@ -7,6 +7,7 @@ export const config = {
     "/api/upload/:path*",
     "/api/images/:path*",
     "/api/settings",
+    "/api/products",
   ],
 };
 
@@ -17,6 +18,12 @@ export default async function proxy(request) {
   if (pathname === "/api/settings" && request.method === "GET") {
     return NextResponse.next();
   }
+  
+  // The storefront reads the products data via GET - keep it public.
+  if (pathname === "/api/products" && request.method === "GET") {
+    return NextResponse.next();
+  }
+
 
   // Always allow the login page itself, or we'd redirect-loop.
   if (pathname === "/admin/login") {

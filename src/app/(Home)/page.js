@@ -12,6 +12,7 @@ import PricelistModal from "@/components/PricelistModal";
 import CartDrawer from "@/components/CartDrawer";
 import Navbar from "@/components/Navbar";
 import MaintenancePage from "@/components/MaintenancePage";
+import Combos from "@/components/Combos";
 import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
 import { useProductStore } from "@/store/useProductStore";
 import { Phone, MessageCircle } from "lucide-react";
@@ -51,6 +52,7 @@ export default function Home() {
           />
         </div>
         <Hero />
+        <Combos />
         <Catalogue />
         <About />
         <SafetyGuidelines />
