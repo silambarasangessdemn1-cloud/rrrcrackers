@@ -13,11 +13,13 @@ import {
   Camera,
   ImageIcon,
   Sparkles,
+  FileEdit,
 } from "lucide-react";
 import { useProductStore } from "@/store/useProductStore";
 import { getProductImage } from "@/config/products";
 import { calculateDiscount } from "@/utils/formatters";
 import ProductImageModal from "@/components/admin/ProductImageModal";
+import ProductDetailsModal from "@/components/admin/ProductDetailsModal";
 import SiteStatusManager from "@/components/admin/SiteStatusManager";
 import { useEffect } from "react";
 
@@ -27,6 +29,7 @@ export default function AdminPage() {
   const categoryKeys = useProductStore((state) => state.categoryKeys);
   const updateProductPrice = useProductStore((state) => state.updateProductPrice);
   const updateProductImage = useProductStore((state) => state.updateProductImage);
+  const updateProduct = useProductStore((state) => state.updateProduct);
   const resetToDefaults = useProductStore((state) => state.resetToDefaults);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
 
@@ -42,6 +45,7 @@ export default function AdminPage() {
 
   // Modal State for updating product image
   const [editingImageProduct, setEditingImageProduct] = useState(null);
+  const [editingDetailsProduct, setEditingDetailsProduct] = useState(null);
 
   const handlePriceChange = (id, field, value) => {
     setEditedPrices((prev) => ({
@@ -89,6 +93,12 @@ export default function AdminPage() {
     updateProductImage(productId, newImageUrl);
     setImageSavedId(productId);
     setTimeout(() => setImageSavedId(null), 2500);
+  };
+
+  const handleSaveDetails = (productId, updatedFields) => {
+    updateProduct(productId, updatedFields);
+    setSavedId(productId);
+    setTimeout(() => setSavedId(null), 1500);
   };
 
   const handleCancel = (id) => {
@@ -395,15 +405,24 @@ export default function AdminPage() {
                             <Check className="w-4 h-4" />
                           </span>
                         ) : (
-                          <button
-                            type="button"
-                            onClick={() => setEditingImageProduct(p)}
-                            className="px-2 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
-                            title="Update image for this product"
-                          >
-                            <ImageIcon className="w-3.5 h-3.5 text-amber-700" />
-                            <span className="hidden sm:inline">Image</span>
-                          </button>
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => setEditingImageProduct(p)}
+                              className="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
+                              title="Update image for this product"
+                            >
+                              <ImageIcon className="w-4 h-4 text-amber-700" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setEditingDetailsProduct(p)}
+                              className="p-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-900 text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
+                              title="Edit product details"
+                            >
+                              <FileEdit className="w-4 h-4 text-blue-700" />
+                            </button>
+                          </>
                         )}
                       </div>
                     </td>
@@ -427,6 +446,14 @@ export default function AdminPage() {
         product={editingImageProduct}
         onClose={() => setEditingImageProduct(null)}
         onSaveImage={handleSaveImage}
+      />
+
+      {/* Product Details Manager Modal */}
+      <ProductDetailsModal
+        isOpen={Boolean(editingDetailsProduct)}
+        product={editingDetailsProduct}
+        onClose={() => setEditingDetailsProduct(null)}
+        onSave={handleSaveDetails}
       />
     </div>
   );
