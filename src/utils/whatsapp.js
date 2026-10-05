@@ -1,4 +1,5 @@
 import { HELPLINE_PHONE, MIN_ORDER_AMOUNT, formatCurrency } from "./formatters";
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
 
 export function generateWhatsAppOrderMessage({
   items = [],
@@ -8,7 +9,10 @@ export function generateWhatsAppOrderMessage({
   totalItems = 0,
   totalAmount = 0,
 }) {
-  let message = `*NEW CRACKERS ENQUIRY - RRR CRACKERS (Diwali 2026)*\n`;
+  const settings = useSiteSettingsStore.getState().settings;
+  const brandName = settings?.brandName || "RRR Crackers";
+
+  let message = `*NEW CRACKERS ENQUIRY - ${brandName.toUpperCase()} (Diwali 2026)*\n`;
   message += `----------------------------------------\n`;
   if (customerName) message += `*Name:* ${customerName}\n`;
   if (customerPhone) message += `*Phone:* ${customerPhone}\n`;

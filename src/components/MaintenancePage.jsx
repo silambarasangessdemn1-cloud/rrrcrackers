@@ -53,8 +53,9 @@ export default function MaintenancePage({ customSettings }) {
   const whatsappNum = settings?.whatsapp || "919865902681";
   const rawWhatsApp = whatsappNum.replace(/[^0-9]/g, "");
   const rawPhone = phoneNum.replace(/[^0-9+]/g, "");
+  const brandName = settings?.brandName || "RRR Crackers";
   const whatsappUrl = `https://wa.me/${rawWhatsApp}?text=${encodeURIComponent(
-    "Hello RRR Crackers team! I would like to inquire about Diwali 2026 crackers & wholesale prices."
+    `Hello ${brandName} team! I would like to inquire about Diwali 2026 crackers & wholesale prices.`
   )}`;
 
   return (
@@ -88,8 +89,8 @@ export default function MaintenancePage({ customSettings }) {
             className="w-custom-40 h-custom-40 max-h-custom-52 object-cover rounded-full aspect-square shadow-md shrink-0"
           />
           <div className="flex flex-col">
-            <span className="font-heading font-black text-h4 tracking-wider text-white">
-              RRR CRACKERS
+            <span className="font-heading font-black text-h4 tracking-wider text-white uppercase">
+              {brandName}
             </span>
             <p className="text-caption font-bold text-accent-gold tracking-widest uppercase">
               Sivakasi Direct Agency &bull; Festival Fireworks

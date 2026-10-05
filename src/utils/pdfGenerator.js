@@ -1,6 +1,10 @@
 import { formatCurrency, HELPLINE_DISPLAY } from "./formatters";
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
 
 export function printPriceListDocument(products, categoryMap) {
+  const settings = useSiteSettingsStore.getState().settings;
+  const brandName = settings?.brandName || "RRR Crackers";
+
   const printWindow = window.open("", "_blank");
   if (!printWindow) return;
 
@@ -23,12 +27,12 @@ export function printPriceListDocument(products, categoryMap) {
     <!DOCTYPE html>
     <html>
     <head>
-      <title>RRR Crackers - 2026 Price List</title>
+      <title>${brandName} - 2026 Price List</title>
       <style>
         @page { size: A4; margin: 10mm; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1c1917; margin: 0; padding: 0; font-size: 11px; }
         .header { text-align: center; border-bottom: 2px solid #800000; padding-bottom: 8px; margin-bottom: 12px; }
-        .title { color: #800000; font-size: 20px; font-weight: bold; margin: 0; }
+        .title { color: #800000; font-size: 20px; font-weight: bold; margin: 0; text-transform: uppercase; }
         .subtitle { color: #44403c; font-size: 11px; margin-top: 3px; }
         .meta { color: #d97706; font-size: 10px; font-weight: bold; margin-top: 2px; }
         table { width: 100%; border-collapse: collapse; margin-top: 6px; }
@@ -42,7 +46,7 @@ export function printPriceListDocument(products, categoryMap) {
     </head>
     <body>
       <div class="header">
-        <div class="title">RRR CRACKERS &bull; SIVAKASI DIRECT</div>
+        <div class="title">${brandName} &bull; SIVAKASI DIRECT</div>
         <div class="subtitle">Diwali 2026 Wholesale Price List &bull; Phone / WhatsApp: ${HELPLINE_DISPLAY}</div>
         <div class="meta">Minimum Order: ₹3,000 &bull; Valid 10/09/2026 to 02/11/2026</div>
       </div>
@@ -61,7 +65,7 @@ export function printPriceListDocument(products, categoryMap) {
         </tbody>
       </table>
       <div class="footer">
-        &copy; 2026 RRR Crackers. All rights reserved. Direct Sivakasi wholesale supply.
+        &copy; 2026 ${brandName}. All rights reserved. Direct Sivakasi wholesale supply.
       </div>
       <script>
         window.onload = function() {
@@ -84,6 +88,9 @@ export function printOrderEstimateDocument({
   customerAddress = "",
   totalAmount = 0,
 }) {
+  const settings = useSiteSettingsStore.getState().settings;
+  const brandName = settings?.brandName || "RRR Crackers";
+
   const printWindow = window.open("", "_blank");
   if (!printWindow) return;
 
@@ -106,12 +113,12 @@ export function printOrderEstimateDocument({
     <!DOCTYPE html>
     <html>
     <head>
-      <title>RRR Crackers - Order Estimate</title>
+      <title>${brandName} - Order Estimate</title>
       <style>
         @page { size: A4; margin: 12mm; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1c1917; margin: 0; padding: 0; font-size: 12px; }
         .header { text-align: center; border-bottom: 2px solid #800000; padding-bottom: 10px; margin-bottom: 15px; }
-        .title { color: #800000; font-size: 22px; font-weight: bold; margin: 0; }
+        .title { color: #800000; font-size: 22px; font-weight: bold; margin: 0; text-transform: uppercase; }
         .subtitle { color: #44403c; font-size: 12px; margin-top: 4px; }
         .customer { background: #fef7ed; padding: 10px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #fde68a; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
@@ -123,7 +130,7 @@ export function printOrderEstimateDocument({
     </head>
     <body>
       <div class="header">
-        <div class="title">RRR CRACKERS &bull; SIVAKASI DIRECT</div>
+        <div class="title">${brandName} &bull; SIVAKASI DIRECT</div>
         <div class="subtitle">Diwali 2026 Order Estimate &bull; Helpline: ${HELPLINE_DISPLAY}</div>
       </div>
       ${
@@ -155,7 +162,7 @@ export function printOrderEstimateDocument({
         Total Order Value: ${formatCurrency(totalAmount)}
       </div>
       <div class="footer">
-        &copy; 2026 RRR Crackers. This is an estimated order quote. Final order confirmation will be shared via WhatsApp.
+        &copy; 2026 ${brandName}. This is an estimated order quote. Final order confirmation will be shared via WhatsApp.
       </div>
       <script>
         window.onload = function() {

@@ -2,15 +2,18 @@ import "../../globals.css";
 import Link from "next/link";
 import { ArrowLeft, Flame, LogOut } from "lucide-react";
 
+import siteSettings from "@/config/siteSettings.json";
+
+const brandName = siteSettings.brandName || "RRR Crackers";
+
 export const metadata = {
-  title: "Admin Dashboard – RRR Crackers Price Manager",
-  description: "Update wholesale and MRP prices for RRR Crackers. Synced live with storefront and LocalStorage.",
+  title: `Admin Dashboard – ${brandName} Price Manager`,
+  description: `Update wholesale and MRP prices for ${brandName}. Synced live with storefront and LocalStorage.`,
 };
 
 export default function AdminLayout({ children }) {
   return (
-    <html lang="en" className="h-full">
-      <body className="min-h-full flex flex-col bg-mist text-text-primary antialiased">
+    <div className="min-h-full flex flex-col bg-mist text-text-primary antialiased">
         <header className="sticky top-0 z-40 bg-primary-950 border-b border-primary-900 text-cream px-custom-16 md:px-custom-24 py-custom-12 flex items-center justify-between shadow-md">
           <div className="flex items-center gap-custom-12">
             <div className="w-custom-36 h-custom-36 rounded-custom-8 bg-accent-gold/20 border border-accent-gold/40 flex items-center justify-center text-accent-gold">
@@ -18,8 +21,8 @@ export default function AdminLayout({ children }) {
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-custom-6">
-                <span className="font-heading font-bold text-body-lg text-white">
-                  RRR CRACKERS
+                <span className="font-heading font-bold text-body-lg text-white uppercase">
+                  {brandName}
                 </span>
                 <span className="px-custom-6 py-0.5 rounded-full bg-accent-gold text-primary-950 font-extrabold text-[10px] tracking-wider uppercase">
                   Admin Panel
@@ -54,7 +57,6 @@ export default function AdminLayout({ children }) {
         <main className="flex-1 w-full max-w-7xl mx-auto p-custom-16 md:p-custom-24">
           {children}
         </main>
-      </body>
-    </html>
+    </div>
   );
 }

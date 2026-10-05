@@ -11,7 +11,8 @@ export default function Combos() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleOrderCombo = (comboName) => {
-    const message = `*NEW COMBO ENQUIRY - RRR CRACKERS*\n----------------------------------------\nI would like to order the *${comboName}*.\nPlease provide the details and payment information.`;
+    const brandName = settings?.brandName || "RRR Crackers";
+    const message = `*NEW COMBO ENQUIRY - ${brandName.toUpperCase()}*\n----------------------------------------\nI would like to order the *${comboName}*.\nPlease provide the details and payment information.`;
     
     // Get raw whatsapp number from settings, fallback to default
     const rawWhatsApp = (settings?.whatsapp || "919865902681").replace(/[^0-9]/g, "");

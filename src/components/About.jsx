@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
 
 const WHY_CHOOSE_ITEMS = [
   {
@@ -26,6 +27,9 @@ const WHY_CHOOSE_ITEMS = [
 ];
 
 export default function About() {
+  const settings = useSiteSettingsStore((state) => state.settings);
+  const brandName = settings?.brandName || "RRR Crackers";
+
   return (
     <section id="about" className="w-full bg-cream section py-custom-28">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-custom-24 lg:gap-custom-36 p-custom-16 sm:p-custom-28 md:p-custom-48 items-center border border-accent-gold rounded-2xl">
@@ -34,7 +38,7 @@ export default function About() {
           <div className="flex items-center gap-custom-12">
             <div className="flex flex-col">
               <h2 className="text-h3 font-heading font-bold text-text-primary">
-                About RRR Crackers
+                About {brandName}
               </h2>
               <span className="text-caption text-secondary">
                 Sivakasi Direct Agency Quality Since 2026
@@ -43,7 +47,7 @@ export default function About() {
           </div>
 
           <p className="text-body text-text-secondary leading-relaxed">
-            RRR Crackers brings the rich tradition of Sivakasi firecrackers right to your doorstep. We provide factory-direct genuine crackers, festive combo packs, child-safe sparkles, vibrant fountains, and spectacular multi-color sky shots at unmatchable wholesale rates.
+            {brandName} brings the rich tradition of Sivakasi firecrackers right to your doorstep. We provide factory-direct genuine crackers, festive combo packs, child-safe sparkles, vibrant fountains, and spectacular multi-color sky shots at unmatchable wholesale rates.
           </p>
 
           <p className="text-body text-text-secondary leading-relaxed">
@@ -54,7 +58,7 @@ export default function About() {
         <div className="bg-gold-tint/80 border border-border-amber rounded-custom-16 p-custom-20 md:p-custom-24 flex flex-col gap-custom-16 shadow-xs">
           <div className="flex items-center gap-custom-8">
             <h3 className="text-body-lg font-bold text-text-primary">
-              Why Choose RRR Crackers?
+              Why Choose {brandName}?
             </h3>
           </div>
 

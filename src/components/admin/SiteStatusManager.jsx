@@ -34,6 +34,7 @@ export default function SiteStatusManager() {
 
   // Local form state for settings modal
   const [formData, setFormData] = useState({
+    brandName: "",
     title: "",
     subtitle: "",
     maintenanceMessage: "",
@@ -49,6 +50,7 @@ export default function SiteStatusManager() {
   useEffect(() => {
     if (settings) {
       setFormData({
+        brandName: settings.brandName || "RRR Crackers",
         title: settings.title || "Currently Under Maintenance",
         subtitle: settings.subtitle || "எங்கள் தளம் தற்காலிகமாக பராமரிப்பில் உள்ளது",
         maintenanceMessage:
@@ -228,6 +230,20 @@ export default function SiteStatusManager() {
 
             {/* Modal Form Content */}
             <form onSubmit={handleSaveSettings} className="p-6 space-y-4 overflow-y-auto flex-1">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-text-primary mb-1.5">
+                  Brand Name
+                </label>
+                <input
+                  type="text"
+                  value={formData.brandName}
+                  onChange={(e) => setFormData({ ...formData, brandName: e.target.value })}
+                  placeholder="e.g. RRR Crackers"
+                  className="w-full px-3.5 py-2 rounded-xl border border-border-amber bg-cream text-sm text-text-primary focus:outline-none focus:border-primary-600"
+                  required
+                />
+              </div>
+
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-text-primary mb-1.5">
                   English Title

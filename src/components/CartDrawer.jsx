@@ -16,8 +16,10 @@ import CartItemCard from "@/components/CartItemCard";
 import { generateWhatsAppOrderMessage, openWhatsAppEnquiry } from "@/utils/whatsapp";
 import { printOrderEstimateDocument } from "@/utils/pdfGenerator";
 import { formatCurrency, MIN_ORDER_AMOUNT } from "@/utils/formatters";
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
 
 export default function CartDrawer() {
+  const settings = useSiteSettingsStore((state) => state.settings);
   const items = useCartStore((state) => state.items);
   const isCartOpen = useCartStore((state) => state.isCartOpen);
   const closeCart = useCartStore((state) => state.closeCart);
@@ -275,7 +277,7 @@ export default function CartDrawer() {
 
               <div className="flex items-center justify-center gap-custom-6 text-caption text-secondary pt-custom-2">
                 <CheckCircle2 className="w-custom-12 h-custom-12 text-semantic-success" />
-                <span>Direct confirmation by RRR Crackers team</span>
+                <span>Direct confirmation by {settings?.brandName || "RRR Crackers"} team</span>
               </div>
             </div>
           )}

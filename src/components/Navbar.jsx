@@ -52,6 +52,7 @@ import Image from "next/image";
 import { images } from "@/config/image";
 
 import { useCartStore } from "@/store/useCartStore";
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -62,6 +63,8 @@ const NAV_LINKS = [
 ];
 
 export default function Navbar() {
+  const settings = useSiteSettingsStore((state) => state.settings);
+  const brandName = settings?.brandName || "RRR Crackers";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const openCart = useCartStore((state) => state.openCart);
   const items = useCartStore((state) => state.items);
@@ -89,14 +92,14 @@ export default function Navbar() {
             <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center">
               <Image
                 src={images.logo}
-                alt="RRR Crackers Logo"
+                alt={`${brandName} Logo`}
                 fill
                 className="object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="hidden md:flex flex-col justify-center">
-              <span className="text-lg font-black text-primary-900 leading-tight tracking-tight">
-                RRR CRACKERS
+              <span className="text-lg font-black text-primary-900 leading-tight tracking-tight uppercase">
+                {brandName}
               </span>
               <span className="text-[10px] font-bold text-primary-500 uppercase tracking-widest">
                 Sivakasi Direct

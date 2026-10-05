@@ -38,6 +38,8 @@ export default function Home() {
   const rawPhone = (settings?.phone || "+91 98659 02681").replace(/[^0-9+]/g, "");
   const rawWhatsApp = (settings?.whatsapp || "919865902681").replace(/[^0-9]/g, "");
 
+  const brandName = settings?.brandName || "RRR Crackers";
+
   return (
     <main className="w-full flex flex-col bg-cream">
       <Navbar />
@@ -45,7 +47,7 @@ export default function Home() {
         <div className="w-full flex justify-center pt-8 pb-4">
           <Image 
             src={images.logo} 
-            alt="RRR Crackers Logo" 
+            alt={`${brandName} Logo`} 
             width={200} 
             height={100}
             className="w-48 h-auto object-contain"

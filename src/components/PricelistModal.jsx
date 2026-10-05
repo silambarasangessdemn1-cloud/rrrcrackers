@@ -13,12 +13,15 @@ import { useProductStore } from "@/store/useProductStore";
 import { useProductFilter } from "@/hooks/useProductFilter";
 import { useScrollLock } from "@/hooks/useScrollLock";
 import { printPriceListDocument } from "@/utils/pdfGenerator";
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
 
 export default function PricelistModal() {
   const [isOpen, setIsOpen] = useState(false);
   const products = useProductStore((state) => state.products);
   const categoryMap = useProductStore((state) => state.categoryMap);
   const categoryKeys = useProductStore((state) => state.categoryKeys);
+  const settings = useSiteSettingsStore((state) => state.settings);
+  const brandName = settings?.brandName || "RRR Crackers";
 
   const {
     searchQuery,
@@ -84,7 +87,7 @@ export default function PricelistModal() {
             <Sparkles className="w-custom-20 h-custom-20 text-accent-gold shrink-0" />
             <div className="flex flex-col">
               <h2 className="text-body-lg md:text-h4 font-heading font-bold text-white leading-tight">
-                RRR Crackers - 2026 Catalogue Price List
+                {brandName} - 2026 Catalogue Price List
               </h2>
               <span className="text-custom-16 md:text-caption text-accent-gold font-medium">
                 Sivakasi Direct Agency &bull; 10/09/2026 to 02/11/2026 &bull; Minimum Order &#8377;3,000
@@ -117,7 +120,7 @@ export default function PricelistModal() {
           </div>
 
           <a
-            href="https://wa.me/919865902681?text=Hello%20RRR%20Crackers,%20please%20send%20the%20official%20price%20list."
+            href={`https://wa.me/919865902681?text=Hello%20${encodeURIComponent(brandName)},%20please%20send%20the%20official%20price%20list.`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-caption md:text-body-sm text-semantic-success hover:underline font-bold flex items-center gap-custom-4"

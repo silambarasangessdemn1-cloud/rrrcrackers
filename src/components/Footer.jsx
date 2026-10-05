@@ -32,7 +32,12 @@ function YoutubeIcon({ className = "w-4 h-4" }) {
   );
 }
 
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
+
 export default function Footer() {
+  const settings = useSiteSettingsStore((state) => state.settings);
+  const brandName = settings?.brandName || "RRR Crackers";
+
   return (
     <footer id="contact" className="w-full bg-primary-950 text-cream py-custom-28 px-custom-16 border-t border-primary-900">
       <div className="max-w-7xl mx-auto flex flex-col gap-custom-24">
@@ -40,7 +45,7 @@ export default function Footer() {
 
           <div className="flex flex-col gap-custom-8">
             <h2 className="text-h4 font-heading font-bold text-accent-gold">
-              Contact RRR Crackers
+              Contact {brandName}
             </h2>
             <p className="text-caption text-cream/80">
               Sivakasi Direct Agency Crackers &bull; Tamil Nadu
@@ -57,7 +62,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-custom-6 px-custom-12 py-custom-6 rounded-full bg-white/10 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-orange-500 text-cream hover:text-white border border-white/15 text-caption font-bold transition-all duration-200 shadow-xs hover:scale-105"
-                aria-label="Follow RRR Crackers on Instagram"
+                aria-label={`Follow ${brandName} on Instagram`}
               >
                 <InstagramIcon className="w-custom-16 h-custom-16 text-pink-400 group-hover:text-white shrink-0 transition-colors" />
                 <span>Instagram</span>
@@ -68,7 +73,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-custom-6 px-custom-12 py-custom-6 rounded-full bg-white/10 hover:bg-red-600 text-cream hover:text-white border border-white/15 text-caption font-bold transition-all duration-200 shadow-xs hover:scale-105"
-                aria-label="Subscribe to RRR Crackers on YouTube"
+                aria-label={`Subscribe to ${brandName} on YouTube`}
               >
                 <YoutubeIcon className="w-custom-16 h-custom-16 text-red-500 group-hover:text-white shrink-0 transition-colors" />
                 <span>YouTube</span>
@@ -94,7 +99,7 @@ export default function Footer() {
 
           <div className="flex flex-col sm:flex-row md:flex-col gap-custom-10 w-full md:max-w-xs md:ml-auto">
             <a
-              href="https://wa.me/919865902681?text=Hello%20RRR%20Crackers,%20please%20send%20the%20latest%202026%20catalogue."
+              href={`https://wa.me/919865902681?text=Hello%20${encodeURIComponent(brandName)},%20please%20send%20the%20latest%202026%20catalogue.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-custom-10 px-custom-20 rounded-full bg-semantic-success hover:bg-emerald-600 text-white font-bold text-body-sm flex items-center justify-center gap-custom-8 shadow-md transition-colors"
@@ -116,7 +121,7 @@ export default function Footer() {
 
         <div className="border-t border-primary-900/80 pt-custom-16 flex flex-col sm:flex-row items-center justify-between gap-custom-8 text-center sm:text-left">
           <p className="text-caption text-cream/60">
-            &copy; 2026 RRR Crackers. All rights reserved. Final availability, prices, and delivery terms can be confirmed directly with RRR Crackers.
+            &copy; 2026 {brandName}. All rights reserved. Final availability, prices, and delivery terms can be confirmed directly with {brandName}.
           </p>
           <a
             href="/admin"

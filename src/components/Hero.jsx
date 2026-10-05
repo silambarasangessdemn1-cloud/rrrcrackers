@@ -47,7 +47,12 @@ function FeatureItem({ icon: Icon, title, description }) {
   );
 }
 
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
+
 export default function Hero() {
+  const settings = useSiteSettingsStore((state) => state.settings);
+  const brandName = settings?.brandName || "RRR Crackers";
+
   return (
     <section id="home" className="w-full bg-cream py-custom-32 section min-h-4xl flex items-center">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-custom-32 items-center">
@@ -128,7 +133,7 @@ export default function Hero() {
           <div className="relative w-full rounded-custom-20 md:rounded-custom-24 overflow-hidden shadow-card border border-border-amber bg-white">
             <Image
               src={images.catalogueBanner}
-              alt="Light Up Your Celebration - RRR Crackers 2026 Catalogue"
+              alt={`Light Up Your Celebration - ${brandName} 2026 Catalogue`}
               width={1200}
               height={900}
               priority

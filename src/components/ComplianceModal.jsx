@@ -3,8 +3,12 @@
 import { useState, useEffect } from "react";
 import { AlertTriangle, ShieldCheck, X } from "lucide-react";
 
+import { useSiteSettingsStore } from "@/store/useSiteSettingsStore";
+
 export default function ComplianceModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const settings = useSiteSettingsStore((state) => state.settings);
+  const brandName = settings?.brandName || "RRR Crackers";
 
   useEffect(() => {
     // Check if the user has already seen the modal in this session/ever
@@ -33,7 +37,7 @@ export default function ComplianceModal() {
           <div className="flex items-center gap-3">
             <ShieldCheck className="text-white w-7 h-7" />
             <h2 className="text-xl font-bold text-white tracking-wide">
-              Welcome to RRR Crackers
+              Welcome to {brandName}
             </h2>
           </div>
           <button
